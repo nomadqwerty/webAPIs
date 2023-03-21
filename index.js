@@ -1,55 +1,46 @@
-// get canvs
-let canvas = document.querySelector("canvas");
+// connection
+// console.log(window.navigator.connection);
 
-// get canvas context: version of webgl to use
-let gl = canvas.getContext("webgl2");
+// // cookie enabled
+// console.log(window.navigator.cookieEnabled);
 
-let vShadeSrc = `#version 300 es
+// add cookie
+// add cooking from document object. the cookie property represents a cookie store where data is stored for a time beign.
+// create cookie,
+document.cookie = "key=value; expires=60*60*24*30; path=/; secure:false;  ";
+document.cookie = "name=text; expires=60*60*24*30; path=/; secure:false; ";
 
-#pragma vscode_glsllint_stage: vert
+// get cookie
+console.log(document.cookie.split(";"));
 
+const previousDay = Date.now() - 151200000;
+console.log(previousDay);
+// delete cookie:
+document.cookie = `name=; expires=Thu, 01 Jan 1970T00:00:00Z; path=/; secure:false; `;
+console.log(document.cookie);
+///// experimental cookie store.!!!
+// execute this with axios, to set jwt sent from node server.
+// window.cookieStore.onchange = (e) => {
+//   console.log(e);
+// };
 
-void main()
-{
-    gl_Position = vec4(0.0, 0.0, 0.0, 0.1);
-    gl_PointSize = 150.0;
-}`;
+// window.cookieStore
+//   .set({
+//     name: "nameOfCookie",
+//     value: "dat the key holds",
+//     expires: "Thu, 01 Jan 1970 00:00:00 GMT",
+//     domain: "127.0.0.1",
+//   })
+//   .then(() => {
+//     console.log("cookie set");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
-let fShadeSrc = `#version 300 es
+// window.cookieStore.get("nameOfCookie").then((val) => console.log(val));
 
-#pragma vscode_glsllint_stage: vert
-
-precision mediump float;
-
-out vec4 fragColor;
-
-void main()
-{
-    fragColor = vec4(1.0, 0.0, 0.0, 1.0);
-}`;
-
-// create program:
-let program = gl.createProgram();
-
-// create shader.
-let vShade = gl.createShader(gl.VERTEX_SHADER);
-gl.shaderSource(vShade, vShadeSrc);
-gl.compileShader(vShade);
-gl.attachShader(program, vShade);
-
-// create shader.
-let fShade = gl.createShader(gl.FRAGMENT_SHADER);
-gl.shaderSource(fShade, fShadeSrc);
-gl.compileShader(fShade);
-gl.attachShader(program, fShade);
-
-gl.linkProgram(program);
-
-if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-  console.log(gl.getShaderInfoLog(vShade));
-  console.log(gl.getShaderInfoLog(fShade));
-}
-
-gl.useProgram(program);
-
-gl.drawArrays(gl.POINTS, 0, 1);
+// // get all cookies set
+// window.cookieStore.getAll().then((cookies) => {
+//   console.log(cookies);
+// });
